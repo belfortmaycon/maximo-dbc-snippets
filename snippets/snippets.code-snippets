@@ -1,1 +1,277 @@
-{}
+{
+	//Maxinst dbc snippets code
+	"modify_attribute":{
+		"scope": "xml",
+    "prefix": "modify_attribute",
+		"body": [
+			"<modify_attribute object=\"$1\" attribute=\"$2\"",
+			"\tmaxtype=\"${3|ALN,AMOUNT,BLOB,CLOB,CRYPTO,CRYPTOX,DATE,DATETIME,DECIMAL,DURATION,FLOAT,GL,INTEGER,LONGALN,LOWER,SMALLINT,TIME,UPPER,YORN|}\" length=\"$4\" ",
+      "\tdomain=\"$5\" defaultvalue=\"$6\" title=\"$7\" remarks=\"$8\" " ,
+      "/>"
+		],
+		"description": "Modifies an attribute from an existing object/table."
+	},
+
+	"create_app":{
+		"scope": "xml",
+		"prefix": "create_app",
+		"body": "<create_app app=\"$1\" description=\"$2\" maintbname=\"$3\" orderby=\"$4\" restrictions=\"$5\" />",
+		"description": "Creates an Maximo application."
+	},
+
+	"add_attributes":{
+		"scope": "xml",
+    "prefix": "add_attributes",
+		"body": [
+			"<add_attributes object=\"$1\">",
+			"\t<attrdef attribute=\"$2\" maxtype=\"${3|ALN,AMOUNT,BLOB,CLOB,CRYPTO,CRYPTOX,DATE,DATETIME,DECIMAL,DURATION,FLOAT,GL,INTEGER,LONGALN,LOWER,SMALLINT,TIME,UPPER,YORN|}\" length=\"$4\"",
+			"\t\tscale=\"$5\" title=\"$6\" remarks=\"$7\" persistent=\"${8|true,false|}\" required=\"${9|false,true|}\" domain=\"$10\" defaultvalue=\"$11\" userdefined=\"true\" />",
+			"</add_attributes>"
+		],
+		"description": "Adds new attributes to an existing object/table (created previously by a define_table statement)."
+	},
+
+	"free_form":{
+		"scope": "xml",
+    "prefix": "free_form",
+		"body": [
+			"<freeform description=\"$1\">",
+      		"\t<sql>$2</sql>",
+    		"</freeform>"
+		],
+		"description": "Add session for SQL statements."
+	},
+
+	"free_form_sql":{
+		"scope": "xml",
+    "prefix": "sql_free_form",
+		"body": [
+			"<sql>$2</sql>"
+		],
+		"description": "Add sql to free_form."
+	},
+
+	"add_sigoption":{
+		"scope": "xml",
+    "prefix": "add_sigoption",
+		"body": [
+			"<add_sigoption visible=\"${1|true,false|}\"",
+			"\tapp=\"$2\" optionname=\"$3\"",
+			"\tdescription=\"$4\"",
+			"\tgrantapp=\"$2\" esigenabled=\"false\"/>"
+		],
+		"description": "Creates sigoption"
+	},
+
+  "drop_sigoption":{
+    "scope": "xml",
+    "prefix": "drop_sigoption",
+    "body": [
+      "<drop_sigoption app=\"$1\" optionname=\"$2\"/>"
+    ],
+    "description": "Drop sigoption"
+  },
+
+	"create_relationship":{
+		"scope": "xml",
+    "prefix": "create_relationship",
+		"body": [
+			"<create_relationship name=\"$1\" parent=\"$2\" child=\"$3\"",
+			"\twhereclause=\"$4\"",
+			"\tremarks=\"$5\" />"
+		],
+		"description": "Creates a Maximo relationship between the parent and child objects that are ruled by the whereclause value, a SQL-like that will join parent and child. In the where clause, fields that are defined with ":" are the attributes of parent object. The other fields are from child object."
+	},
+
+	"specify_aln_domain":{
+		"scope": "xml",
+    "prefix": "aln_domain",
+		"body": [
+			"<specify_aln_domain domainid=\"$1\" maxtype=\"${2|ALN,LONGALN,LOWER,UPPER|}\" length=\"$3\"",
+			"  description=\"$4\" overwrite=\"${5|false,true|}\">",
+			"\t<alnvalueinfo value=\"$6\" description=\"$7\" />",
+			"</specify_aln_domain>"
+		],
+		"description": "Specifies a ALN domain, a domain that handle directly with maxtypes."
+	},
+
+	"alnvalueinfo":{
+		"scope": "xml",
+    "prefix": "alnvalueinfo",
+		"body": "<alnvalueinfo value=\"$1\" description=\"$2\" />",
+		"description": "Represents the ALN domain values."
+	},
+
+	"specify_table_domain":{
+		"scope": "xml",
+    "prefix": "table_domain",
+		"body": [
+			"<specify_table_domain",
+			"\tdomainid=\"$1\" objectname=\"$2\"",
+			"\tvalidationwhereclause=\"$3\"",
+			"\tlistwhereclause=\"$4\"",
+			"\tdescription=\"$5\" ",
+			"/>"
+		],
+		"description": "Defines a table domain. You do add a table domain when you want to add a domain that draws its values directly from a column in the database. This process creates a dynamic value list because the values it draws from the database might change."
+	},
+
+	"specify_synonym_domain":{
+		"scope": "xml",
+    "prefix": "synonym_domain",
+		"body": [
+			"<specify_synonym_domain domainid=\"$1\">",
+			"\t<synonymvalueinfo maxvalue=\"$2\" value=\"$3\"",
+			"\tdescription=\"$4\" defaults=\"${5|false,true|}\" />",
+			"</specify_synonym_domain>"
+		],
+		"description": "Specifies a synonym domain."
+	},
+
+	"synonymvalueinfo":{
+		"scope": "xml",
+    "prefix": "synonymvalue",
+		"body": [
+			"<synonymvalueinfo maxvalue=\"$1\" value=\"$2\"",
+			"\tdescription=\"$3\" defaults=\"${4|false,true|}\" />"
+		],
+		"description": "Defines the synonym domain's value. This element is used nested to specify_synonym_domain and add_synonyms elements."
+	},
+
+  "specify_crossover_domain":{
+		"scope": "xml",
+    "prefix": "cross_domain",
+		"body": [
+			"<specify_crossover_domain domainid=\"$1\"",
+        "domainid=\"$1\"",
+        "description=\"$2\"",
+        "overwrite=\"${3|false,true|}\"",
+        "validationwhereclause=\"$4\"",
+        "listwhereclause=\"$5\"",
+        "errorbundle=\"$6\"",
+        "errorkey=\"$7\"",
+        "objectname=\"$8\"",
+			"\t<crossovervalueinfo ",
+      "\t  sourcefield=\"$9\"",
+      "\t  destfield=\"$10\"",
+      "\t  copyifnull=\"${11|true,false|}\"",
+      "\t  copyevenifsrcnull=\"${12|true,false|}\"",
+      "\t  copyonlyifdestnull=\"${13|true,false|}\" />",
+			"</specify_crossover_domain>"
+		],
+		"description": "A crossover domain will allow additional values to be carried or 'crossed' over from a child table when a field is populated in a parent table, with data that connects the two tables based on a where clause that creates a one to one relationship between the two objects"
+	},
+
+	"crossovervalueinfo":{
+		"scope": "xml",
+    "prefix": "crossovervalueinfo",
+		"body": [
+			"<crossovervalueinfo ",
+      "\t  sourcefield=\"$1\"",
+      "\t  destfield=\"$2\"",
+      "\t  copyifnull=\"${3|true,false|}\"",
+      "\t  copyevenifsrcnull=\"${4|true,false|}\"",
+      "\t  copyonlyifdestnull=\"${5|true,false|}\" />",
+		],
+		"description": "It is critical to enter the proper value for the crossover to work. The `crossovervalueinfo` defines more than one source and destination pairing for one crossover domain."
+	},
+
+	"define_table":{
+		"scope": "xml",
+    "prefix": "define_table",
+		"body": [
+			"<define_table object=\"$1\" classname=\"psdi.mbo.custapp.CustomMboSet\"",
+			"\tservice=\"CUSTAPP\" type=\"system\" description=\"$2\"",
+			"\tpersistent=\"${3|true,false|}\" mainobject=\"${4|false,true|}\" internal=\"false\" primarykey=\"$1ID\"",
+			"\ttrigroot=\"$1\">",
+			"\t\t<attrdef attribute=\"$5\" maxtype=\"${6|ALN,AMOUNT,BLOB,CLOB,CRYPTO,CRYPTOX,DATE,DATETIME,DECIMAL,DURATION,FLOAT,GL,INTEGER,LONGALN,LOWER,SMALLINT,TIME,UPPER,YORN|}\" length=\"$7\"",
+			"\t\tscale=\"$8\" title=\"$9\" remarks=\"$10\" persistent=\"${11|true,false|}\" required=\"${12|false,true|}\"  userdefined=\"true\"/>",
+			"</define_table>"
+		],
+		"description": "Creates a database table."
+	},
+
+	"attrsameas":{
+		"scope": "xml",
+    "prefix": "attr_sameas",
+		"body": [
+			"<attrdef attribute=\"$1\" sameasobject=\"$2\"",
+			"\tsameasattribute=\"$3\" title=\"$4\"",
+			"\tremarks=\"$5\" userdefined=\"true\" />"
+		],
+		"description": "Add an attribute using Same As"
+	},
+
+	"attrdef":{
+		"scope": "xml",
+    "prefix": "attrdef",
+		"body": [
+			"<attrdef attribute=\"$1\" maxtype=\"${2|ALN,AMOUNT,BLOB,CLOB,CRYPTO,CRYPTOX,DATE,DATETIME,DECIMAL,DURATION,FLOAT,GL,INTEGER,LONGALN,LOWER,SMALLINT,TIME,UPPER,YORN|}\" length=\"$3\"",
+			"\t\tscale=\"$4\" title=\"$5\" remarks=\"$6\" persistent=\"${7|true,false|}\" required=\"${8|false,true|}\" defaultvalue=\"$9\" userdefined=\"true\" />"
+		],
+		"description": "The attrdef element is nested to add_attributes element and serves to specify each attribute that should be added in a particular table, view or object."
+	},
+
+	"specify_index":{
+		"scope": "xml",
+    "prefix": "add_index",
+		"body": [
+			"<specify_index object=\"$1\" name=\"$2\" primary=\"${3|true,false|}\" unique=\"${4|true,false|}\" clustered=\"${5|true,false|}\" required=\"${6|true,false|}\" >",
+			"\t<indexkey column=\"$7\" ascending=\"${8|false,true|}\" />",
+			"\t$9",
+			"</specify_index>"
+		],
+		"description": "Used to modify an existing index or bring a new one into existence."
+	},
+
+	"drop_attributes":{
+		"scope": "xml",
+    "prefix": "drop_attributes",
+		"body": [
+			"<drop_attributes object=\"$1\">",
+			"\t<attrname name=\"$2\"/>",
+			"</drop_attributes>"
+		],
+		"description": "Drop an attribute according with its name."
+	},
+
+	"create_dbc_file":{
+		"scope": "xml",
+    "prefix": "create_dbc_file",
+		"body": [
+			"<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+			"<!DOCTYPE script SYSTEM \"script.dtd\">",
+			"<script author=\"maxadmin\" scriptname=\"$1\">",
+				"\t<description>$2</description>",
+				"\t<statements>",
+					"\t\t$3",
+				"\t</statements>",
+			"</script>"
+		],
+		"description": "Creates DBC file template"
+	},
+	"set_property":{
+		"scope": "xml",
+		"prefix": "set_property",
+		"body": [
+			"<set_property name=\"$1\" value=\"$2\"/>"
+		],
+    "description": "Set a value to an existent property."
+
+	},
+	"add_property":{
+		"scope": "xml",
+		"prefix": "add_property",
+		"body": [
+			"<add_property name=\"$1\" maxtype=\"${2|ALN.INTEGER.YORN|}\" description=\"$3\"",
+			"\tvalue=\"$4\"",
+			"\tsecure_level=\"${5|private,public,secure,mtsecure|}\" ",
+			"\tlive_refresh=\"${6|true,false|}\"",
+			"\tonline_changes=\"${7|true,false|}\"",
+			"\tdefault_value=\"$8\" ",
+      "\tuser_defined=\"true\" "
+			"/>"
+		],
+    "description": "Add a system property to be configured through the UI."
+	}
+}
