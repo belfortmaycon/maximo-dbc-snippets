@@ -3,6 +3,17 @@
   "displayName": "Maximo DBC Snippets",
   "description": "Snippets for IBM Maximo database configuration files",
   "version": "0.0.1",
+  "publisher": "MayconBelfort",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/belfortmaycon/maximo-dbc-snippets"
+  },
+  "galleryBanner": {
+    "color": "#7159c1",
+    "theme": "dark"
+  },
+  "license": "MIT",
   "engines": {
     "vscode": "^1.86.0"
   },
