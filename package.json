@@ -1,0 +1,20 @@
+{
+  "name": "maximo-dbc-snippets",
+  "displayName": "Maximo DBC Snippets",
+  "description": "Snippets for IBM Maximo database configuration files",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.86.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "xml",
+        "path": "./snippets/snippets.code-snippets"
+      }
+    ]
+  }
+}
